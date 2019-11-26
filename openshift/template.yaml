@@ -270,9 +270,9 @@ parameters:
   name: GITHUB_CVE_REPO
   value: "fabric8-analytics"
 
-- description: "Trigger manifests file generation in cron job. 0: False, 1: True"
+- description: "Trigger manifests file generation in cron job."
   displayName: Generates Manifests
   required: true
   name: GENERATE_MANIFESTS
-  value: 0
+  value: 'False'
 
