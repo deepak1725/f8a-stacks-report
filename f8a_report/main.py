@@ -37,8 +37,13 @@ def main():
         logger.debug('Weekly Job Triggered')
         start_date_wk = (today - timedelta(days=7)).strftime('%Y-%m-%d')
         end_date_wk = today.strftime('%Y-%m-%d')
-        r.re_train(start_date_wk, end_date_wk, 'weekly', retrain=True)
-        if os.environ.get('GENERATE_MANIFESTS', 'false') == 'true':
+        try:
+            r.re_train(start_date_wk, end_date_wk, 'weekly', retrain=True)
+        except Exception as e:
+            logger.error('Error occurred in Retraining. {}'.format(e))
+            pass
+        if os.environ.get('GENERATE_MANIFESTS', 'False') == 'True':
+            logger.info('Generating Manifests Triggered.')
             stacks = r.retrieve_stack_analyses_content(start_date_wk, end_date_wk)
             manifest_interface(stacks)
 
